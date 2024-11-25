@@ -1,63 +1,27 @@
 import 'package:flutter/material.dart';
-import 'Provider/kehadiran_provider.dart';
-import '../view/riwayat_screen.dart';
+import 'package:provider/provider.dart';
+import 'provider/kehadiran_provider.dart';
+import 'screens/home_screen.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => KehadiranProvider(),
+      create: (_) => KehadiranProvider(),
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Monitoring Kehadiran',
+        title: 'Monitoring Kehadiran Siswa',
         theme: ThemeData(
           primarySwatch: Colors.blue,
+          scaffoldBackgroundColor: Colors.white,
         ),
-        home: MainScreen(),
-      ),
-    );
-  }
-}
-
-class MainScreen extends StatefulWidget {
-  @override
-  _MainScreenState createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 0;
-
-  final List<Widget> _pages = [
-    RiwayatScreen(),
-  ];
-
-  void _onTabTapped(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pages[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: _onTabTapped,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.edit),
-            label: 'Pencatatan',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'Riwayat',
-          ),
-        ],
+        debugShowCheckedModeBanner: false,
+        home: const HomeScreen(),
       ),
     );
   }
